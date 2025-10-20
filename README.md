@@ -1,3 +1,5 @@
+[![Docker Build on Release and Schedule](https://github.com/chadfrownfelter/hello-world/actions/workflows/publish.yml/badge.svg)](https://github.com/chadfrownfelter/hello-world/actions/workflows/publish.yml)
+
 # hello-world
 
 This is a tiny Docker image that gives http responses on a designated port (default: 8000).
