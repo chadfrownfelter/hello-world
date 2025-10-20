@@ -21,6 +21,11 @@ jobs:
       packages: write
 
     steps:
+      - name: Check out correct source code
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event_name == 'release' && github.ref_name || steps.get_latest_tag.outputs.tag_name }}
+      
       - name: Get latest release tag
         id: get_latest_tag
         if: github.event_name != 'release'
@@ -33,11 +38,6 @@ jobs:
           echo "tag_name=${TAG}" >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ github.token }}
-
-      - name: Check out correct source code
-        uses: actions/checkout@v5
-        with:
-          ref: ${{ github.event_name == 'release' && github.ref_name || steps.get_latest_tag.outputs.tag_name }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
