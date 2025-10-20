@@ -1,12 +1,12 @@
 FROM busybox:latest
 ENV PORT=8000
-LABEL maintainer="Chris <c@crccheck.com>"
+LABEL maintainer="Chad Frownfelter <chad.frownfelter@gmail.com>"
 
 ADD index.html /www/index.html
 
-# EXPOSE $PORT
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 HEALTHCHECK CMD nc -z localhost $PORT
 
-# Create a basic webserver and run it until the container is stopped
-CMD echo "httpd started" && trap "exit 0;" TERM INT; httpd -v -p $PORT -h /www -f & wait
+CMD ["/entrypoint.sh"]
