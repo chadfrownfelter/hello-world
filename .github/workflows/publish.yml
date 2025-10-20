@@ -1,8 +1,10 @@
-name: Docker Build on Release
+name: Docker Build on Release and Schedule
 
 on:
   release:
     types: [created]
+  schedule:
+    - cron: '0 0 1 * *'
 
 env:
   IMAGE_NAME: chadfrownfelter/hello-world
@@ -50,11 +52,24 @@ jobs:
       - name: Generate Docker image tags
         id: meta
         run: |
-          RELEASE_TAG="${{ github.ref_name }}"
-          TAGS=$(echo "
-          ${{ env.IMAGE_NAME }}:${RELEASE_TAG}
-          ${{ env.IMAGE_NAME }}:latest
-          " | sed '/^$/d' | paste -sd ',' -)
+          # triggered by a new GitHub Release (e.g., 1.2.3)
+          if [[ "${{ github.event_name }}" == "release" ]]; then
+            RELEASE_TAG="${{ github.ref_name }}"
+            TAGS=$(echo "
+            ${{ env.IMAGE_NAME }}:${RELEASE_TAG}
+            ${{ env.IMAGE_NAME }}:latest
+            " | sed '/^$/d' | paste -sd ',' -)
+
+          # triggered by schedule or manual run
+          else
+            LATEST_RELEASE_TAG="${{ steps.get_latest_tag.outputs.tag_name }}"
+            BUILD_DATE=$(date +'%Y%m%d')
+            TAGS=$(echo "
+            ${{ env.IMAGE_NAME }}:${LATEST_RELEASE_TAG}-${BUILD_DATE}
+            ${{ env.IMAGE_NAME }}:${LATEST_RELEASE_TAG}
+            ${{ env.IMAGE_NAME }}:latest
+            " | sed '/^$/d' | paste -sd ',' -)
+          fi
           echo "tags=${TAGS}" >> $GITHUB_OUTPUT
           echo "Generated tags: ${TAGS}"
 
