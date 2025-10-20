@@ -19,3 +19,28 @@ docker run -d --rm --name web-hello-world -p 80:8000 chadfrownfelter/hello-world
 ```bash
 docker run -d --rm --name web-hello-world -e PORT=3000 -p 80:3000 chadfrownfelter/hello-world
 ```
+## Output
+
+### CLI
+```bash
+curl localhost:80
+
+<link rel="icon" href="data:,">
+<pre>
+Hello World
+
+
+                                       ##         .
+                                 ## ## ##        ==
+                              ## ## ## ## ##    ===
+                           /""""""""""""""""\___/ ===
+                      ~~~ {~~ ~~~~ ~~~ ~~~~ ~~ ~ /  ===- ~~~
+                           \______ o          _,/
+                            \      \       _,'
+                             `'--.._\..--''
+</pre>
+
+```
+
+### Browser
+<img width="620" height="296" alt="hello-world-browser" src="https://github.com/user-attachments/assets/545492b1-9514-41a6-8ee4-cf2d61e6b393" />
