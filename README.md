@@ -7,6 +7,8 @@ This is a tiny Docker image that gives http responses on a designated port (defa
 While there are plenty of scenarios to customize this, my goal is to keep this a small as 
 possible to reduce time on feedback loops and have speedier deploys.
 
+This was heavily inspired from https://github.com/crccheck/docker-hello-world
+
 ## Sample Usage
 
 ### Starting a web server on port 80
