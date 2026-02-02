@@ -21,6 +21,13 @@ docker run -d --rm --name web-hello-world -p 80:8000 chadfrownfelter/hello-world
 ```bash
 docker run -d --rm --name web-hello-world -e PORT=3000 -p 80:3000 chadfrownfelter/hello-world
 ```
+
+### Running the container with custom URL paths
+NOTE: This essentially allows custom URL paths to return `200` instead of `404` (eg. health check paths)
+```bash
+docker run -d --rm --name web-hello-world -e REDIRECT_PATHS="/url1, /url2" -p 80:3000 chadfrownfelter/hello-world
+```
+
 ## Output
 
 ### CLI
