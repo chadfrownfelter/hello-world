@@ -7,6 +7,4 @@ ADD index.html /www/index.html
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-HEALTHCHECK CMD nc -z localhost $PORT
-
 CMD ["/entrypoint.sh"]
